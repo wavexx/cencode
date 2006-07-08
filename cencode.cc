@@ -67,19 +67,21 @@ escapeChar(char buf[8], int prev, int cur)
 
 
 void
-encode(istream& fd, const char* sym)
+encode(istream& fd, const char* sym, bool str)
 {
-  cout << "const char " << sym << "[] =\n  \"";
   int len;
   int col = 3;
   int prev = istream::traits_type::eof();
   char buf[8];
 
+  if(!str)
+    cout << "const char " << sym << "[] =\n  \"";
+
   for(int cur = fd.get(); fd; cur = fd.get())
   {
     len = escapeChar(buf, prev, cur);
 
-    if(col + len > 76)
+    if(!str && col + len > 76)
     {
       len = escapeChar(buf, istream::traits_type::eof(), cur);
       cout << "\"\n  \"";
@@ -93,29 +95,51 @@ encode(istream& fd, const char* sym)
   if(!fd && !fd.eof())
     throw 0;
 
-  cout << "\";\n";
+  if(!str)
+    cout << "\";\n";
+}
+
+
+int
+usage(const char* prg)
+{
+  cerr << prg << " usage: " << prg << " [-s] symbol [file]\n";
+  return EXIT_FAILURE;
 }
 
 
 int
 main(int argc, char* argv[]) try
 {
-  if(argc != 2 && argc != 3)
-  {
-    cerr << argv[0] << " usage: " << argv[0] << " symbol [file]\n";
-    return EXIT_FAILURE;
-  }
+  int arg;
+  bool str = false;
 
-  const char* sym = argv[1];
-  const char* file = argv[2];
+  // args
+  while((arg = getopt(argc, argv, "s")) != -1)
+    switch(arg)
+    {
+    case 's':
+      str = !str;
+      break;
+
+    default:
+      return usage(argv[0]);
+    }
+
+  argc -= optind;
+  if(argc != 2 && argc != 3)
+    return usage(argv[0]);
+
+  const char* sym = argv[optind++];
+  const char* file = argv[optind++];
 
   if(!file)
-    encode(cin, sym);
+    encode(cin, sym, str);
   else
   {
     ifstream fd(file);
     if(!fd) throw 0;
-    encode(fd, sym);
+    encode(fd, sym, str);
   }
 
   return EXIT_SUCCESS;
