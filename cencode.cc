@@ -1,8 +1,11 @@
 /*
- * cencode - A simple file-to-Cstring encoder
- * Copyright(c) 2006 of wave++ (Yuri D'Elia)
- * Distributed under GNU LGPL without ANY warranty.
+ * cencode - A simple file-to-Cstring encoder - utility
+ * Copyright(c) 2007 of wave++ (Yuri D'Elia)
+ * Distributed under Revised BSD license without ANY warranty.
  */
+
+// local headers
+#include "cencode.h"
 
 // system headers
 #include <iostream>
@@ -15,55 +18,7 @@ using std::ifstream;
 using std::istream;
 
 // c system headers
-#include <ctype.h>
-#include <stdlib.h>
 #include <unistd.h>
-
-
-int
-iscesc(int c)
-{
-  switch(c)
-  {
-  case '\a': return 'a';
-  case '\b': return 'b';
-  case '\f': return 'f';
-  case '\n': return 'n';
-  case '\r': return 'r';
-  case '\t': return 't';
-  case '\v': return 'v';
-  case '\\': return '\\';
-  case '\"': return '"';
-  }
-
-  return 0;
-}
-
-
-int
-escapeChar(char buf[8], int prev, int cur)
-{
-  if(int esc = iscesc(cur))
-  {
-    buf[0] = '\\';
-    buf[1] = esc;
-    return 2;
-  }
-  if(!isprint(cur))
-    return sprintf(buf, "\\%o", cur);
-
-  int len = 0;
-  if(prev != istream::traits_type::eof() && !iscesc(prev)
-      && !isprint(prev) && isdigit(cur))
-  {
-    buf[0] = '"';
-    buf[1] = '"';
-    len = 2;
-  }
-
-  buf[len++] = cur;
-  return len;
-}
 
 
 void
@@ -71,7 +26,7 @@ encode(istream& fd, const char* sym)
 {
   int len;
   int col = 3;
-  int prev = istream::traits_type::eof();
+  int prev = EOF;
   char buf[8];
 
   if(sym)
@@ -83,7 +38,7 @@ encode(istream& fd, const char* sym)
 
     if(sym && col + len > 77)
     {
-      len = escapeChar(buf, istream::traits_type::eof(), cur);
+      len = escapeChar(buf, EOF, cur);
       cout << "\"\n  \"";
       col = 3;
     }
@@ -115,13 +70,14 @@ main(int argc, char* argv[]) try
 
   // args
   int arg;
-  while((arg = getopt(argc, argv, "s:")) != -1)
+  while((arg = getopt(argc, argv, "hs:")) != -1)
     switch(arg)
     {
     case 's':
       sym = optarg;
       break;
 
+    case 'h':
     default:
       return usage(argv[0]);
     }

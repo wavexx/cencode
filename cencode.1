@@ -1,0 +1,77 @@
+.\" cencode.1: cencode manual
+.\" Copyright(c) 2006 by wave++ "Yuri D'Elia" <wavexx@users.sf.net>
+.\" Distributed under Revised BSD license (see COPYING) WITHOUT ANY WARRANTY.
+.\"
+.Dd December 14, 2006
+.Dt CENCODE 1
+.\"
+.\"
+.Sh NAME
+.Nm cencode
+.Nd encode a stream into c-string escape sequences
+.\"
+.\"
+.Sh SYNOPSIS
+.Nm
+.Op Fl h
+.Op Fl s Ar sym
+.Op Ar file ...
+.\"
+.\"
+.Sh DESCRIPTION
+.Nm
+encodes a stream or a file into quoted c-string escape sequences, suitable for
+use directly into C code.
+.Pp
+.Nm
+is an universal alternative to dedicated export formats like XPM, unportable
+resource forks, linker flags and windows resources where dynamic loading of
+external data is not possible or undesired.
+.\"
+.\"
+.Sh OPTIONS
+.\"
+.Bl -tag -compact
+.It Fl h
+Display short usage information.
+.It Fl s Ar sym
+Output the whole sequence as a quoted C symbol named sym.
+.El
+.Pp
+If no files are specified,
+.Nm
+reads the stream from standard input.
+.\"
+.\"
+.Sh EXAMPLES
+Convert the file
+.Pa data
+into the named string
+.Ar dataString
+.Pp
+.Dl cencode -s dataString data > file.c
+.Pp
+Encode multiple files into a single string:
+.Pp
+.Dl cat file1 file2 file3 | cencode -s sym > file.c
+.\"
+.\"
+.Sh NOTES
+Embedding unstructured binary content into executables should be avoided at all
+costs.
+.\"
+.\"
+.Sh DIAGNOSTICS
+.Ex -std
+.\"
+.\"
+.Sh SEE ALSO
+.Xr lzo 1
+.\"
+.\"
+.Sh AUTHORS
+.Nm
+is distributed under Revised BSD license (see COPYING)
+.Em WITHOUT ANY WARRANTY .
+Copyright(c) 2006 by
+.An "Yuri D'Elia" Aq wavexx@users.sf.net .
