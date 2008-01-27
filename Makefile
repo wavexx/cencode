@@ -1,5 +1,5 @@
 # Makefile for cencode (for pmake or gmake)
-# Copyright(c) 2006 by wave++ (Yuri D'Elia) <wavexx@users.sf.net>
+# Copyright(c) 2006-2008 by wave++ (Yuri D'Elia) <wavexx@users.sf.net>
 # Distributed under Revised BSD license without ANY warranty.
 
 # configuration

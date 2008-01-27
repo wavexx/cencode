@@ -1,0 +1,5 @@
+cencode 1.1:
+
+	* Column wrapping is now customizable.
+	* Symbol qualifiers are now customizable.
+	* cencode now defaults to packed output style.

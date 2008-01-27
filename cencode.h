@@ -1,6 +1,6 @@
 /*
  * cencode - A simple file-to-Cstring encoder
- * Copyright(c) 2007 of wave++ (Yuri D'Elia)
+ * Copyright(c) 2007-2008 of wave++ (Yuri D'Elia)
  * Distributed under Revised BSD license without ANY warranty.
  */
 
@@ -19,7 +19,6 @@ iscesc(int c)
   {
   case '\a': return 'a';
   case '\b': return 'b';
-  case '\e': return 'e';
   case '\f': return 'f';
   case '\n': return 'n';
   case '\r': return 'r';
