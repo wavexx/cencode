@@ -19,6 +19,7 @@ using std::istream;
 
 // c system headers
 #include <unistd.h>
+#include <string.h>
 
 
 struct EncodeParams
