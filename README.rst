@@ -26,7 +26,7 @@ Authors and Copyright
 cencode is distributed under the Revised BSD license (see COPYING) WITHOUT ANY
 WARRANTY. Use at your own risk.
 
-Copyright(c) 2007-2008 by wave++ "Yuri D'Elia" <wavexx@users.sf.net>.
+Copyright(c) 2007-2008 by wave++ "Yuri D'Elia" <wavexx@thregr.org>.
 Suggestions/comments are welcome.
 
 The cencode home page is located at:
