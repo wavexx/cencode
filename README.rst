@@ -1,11 +1,12 @@
-=========================================================================
-cencode: encodes a stream or a file into quoted c-string escape sequences
-=========================================================================
+=======================================================================
+cencode: encodes a stream or file into quoted c-string escape sequences
+=======================================================================
 
-cencode encodes a stream or a file into quoted c-string escape sequences,
-suitable for use directly in C code. It is a universal alternative to dedicated
-export formats like XPM, unportable resource forks, linker flags, and Windows
-resources where dynamic loading of external data is not possible or undesired. 
+cencode encodes a stream or file into quoted c-string escape sequences,
+suitable for use directly in C code. It is an universal alternative to
+dedicated export formats like XPM, unportable resource forks, linker flags, and
+Windows resources where dynamic loading of external data is not possible or
+undesired.
 
 
 Building
